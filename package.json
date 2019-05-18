@@ -1,0 +1,11 @@
+{
+  "name": "votingapp",
+  "version": "1.0.0",
+  "description": "node ejs application",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "chase owens",
+  "license": "ISC"
+}

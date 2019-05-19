@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Voting App</title>
+    <meta name="description" content="Voting App" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <h1>Vote on a Topic</h1>
+    <form
+      id="poll-form"
+      class="vote-block"
+      method="POST"
+      action="vote/new"
+      id="poll"
+    >
+      <div class="vote-block">
+        <label for="linux">Linux</label>
+        <input
+          class="option"
+          id="linux"
+          name="vote"
+          value="linux"
+          type="checkbox"
+          onclick="newVote(this)"
+        />
+      </div>
+      <div class="vote-block">
+        <label for="macOS">Mac OS</label>
+        <input
+          class="option"
+          id="macOS"
+          name="vote"
+          value="macOS"
+          type="checkbox"
+          onclick="newVote(this)"
+        />
+      </div>
+      <div class="vote-block">
+        <label for="windows">Windows</label>
+        <input
+          class="option"
+          id="windows"
+          name="vote"
+          value="windows"
+          type="checkbox"
+          onclick="newVote(this)"
+        />
+      </div>
+      <input id="button" type="submit" />
+    </form>
+    <hr />
+    <h1>Results:</h1>
+    <div>
+      <p>Linux: <span id="linux-votes"></span> votes</p>
+      <p>MacOS: <span id="macOS-votes"></span> votes</p>
+      <p>Windows: <span id="windows-votes"></span> votes</p>
+    </div>
+    <script>
+      let poll = document.getElementById('poll-form');
+
+      let newVote = element => {
+        console.log('hello');
+        let options = document.getElementsByClassName('option');
+        for (let i = 0; i < options.length; i++) {
+          console.log(options[i]);
+          if (options[i].id !== element.id) {
+            options[i].checked = false;
+          }
+        }
+      };
+
+      window.onload = () => {
+        fetch('/poll').then(results => {
+          results.json().then(data => {
+            for (x in data) {
+              console.log(data);
+              console.log(data[x]);
+              document.getElementById(`${x}-votes`).innerText = data[x];
+            }
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
